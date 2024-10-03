@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ランダムフォーム</title>
+</head>
+<body>
+
+<h1>ランダムに並び替えられたフォームリスト</h1>
+<ul id="formList"></ul>
+
+<script>
+  // フォームのURLリスト
+  var urls = [
+    "https://forms.gle/form1",
+    "https://forms.gle/form2",
+    "https://forms.gle/form3"
+  ];
+
+  // Fisher-Yatesアルゴリズムを使用してURLをシャッフル
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  // ランダム化されたURLをリストとして表示
+  function displayShuffledUrls() {
+    shuffle(urls);  // URLをシャッフル
+    var list = document.getElementById("formList");
+    list.innerHTML = '';  // リストをリセット
+
+    urls.forEach(function(url) {
+      var listItem = document.createElement("li");
+      var link = document.createElement("a");
+      link.href = url;
+      link.textContent = url;
+      link.target = "_blank";  // 新しいタブで開く
+      listItem.appendChild(link);
+      list.appendChild(listItem);
+    });
+  }
+
+  // ページがロードされた時にシャッフルされたリストを表示
+  window.onload = displayShuffledUrls;
+</script>
+
+</body>
+</html>
